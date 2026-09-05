@@ -1,0 +1,90 @@
+<div class="product-form-container">
+  <h2>Registro de Producto</h2>
+  <p class="subtitle">Complete el formulario para registrar un nuevo producto en el catálogo.</p>
+
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" novalidate>
+
+    <div class="form-group" [class.has-error]="campoInvalido('nombre')"
+      [class.has-success]="nombre?.valid && (nombre?.touched || nombre?.dirty)">
+      <label for="nombre">Nombre del producto *</label>
+      <input id="nombre" type="text" formControlName="nombre" placeholder="Ej: Laptop Gamer X15" autocomplete="off">
+
+      <div class="error-list" *ngIf="campoInvalido('nombre')">
+        <p class="error-msg" *ngFor="let msg of obtenerErrores('nombre')">{{ msg }}</p>
+      </div>
+      <p class="hint" *ngIf="!campoInvalido('nombre')">Entre 3 y 60 caracteres.</p>
+    </div>
+
+    <div class="form-group" [class.has-error]="campoInvalido('descripcion')">
+      <label for="descripcion">Descripción *</label>
+      <textarea id="descripcion" formControlName="descripcion" rows="3"
+        placeholder="Describa las características principales del producto"></textarea>
+
+      <div class="error-list" *ngIf="campoInvalido('descripcion')">
+        <p class="error-msg" *ngFor="let msg of obtenerErrores('descripcion')">{{ msg }}</p>
+      </div>
+      <p class="hint" *ngIf="!campoInvalido('descripcion')">
+        {{ descripcion?.value?.length || 0 }}/200 caracteres.
+      </p>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group" [class.has-error]="campoInvalido('precio')">
+        <label for="precio">Precio (USD) *</label>
+        <input id="precio" type="number" formControlName="precio" placeholder="0.00" step="0.01">
+
+        <div class="error-list" *ngIf="campoInvalido('precio')">
+          <p class="error-msg" *ngFor="let msg of obtenerErrores('precio')">{{ msg }}</p>
+        </div>
+      </div>
+
+      <div class="form-group" [class.has-error]="campoInvalido('stock')">
+        <label for="stock">Stock disponible *</label>
+        <input id="stock" type="number" formControlName="stock" placeholder="0" step="1">
+
+        <div class="error-list" *ngIf="campoInvalido('stock')">
+          <p class="error-msg" *ngFor="let msg of obtenerErrores('stock')">{{ msg }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group" [class.has-error]="campoInvalido('categoria')">
+      <label for="categoria">Categoría *</label>
+      <select id="categoria" formControlName="categoria">
+        <option value="" disabled>Seleccione una categoría</option>
+        <option *ngFor="let cat of categorias" [value]="cat">{{ cat }}</option>
+      </select>
+
+      <div class="error-list" *ngIf="campoInvalido('categoria')">
+        <p class="error-msg" *ngFor="let msg of obtenerErrores('categoria')">{{ msg }}</p>
+      </div>
+    </div>
+
+    <div class="debug-panel">
+      <span [class.tag-ok]="productForm.valid" [class.tag-bad]="productForm.invalid">
+        {{ productForm.valid ? 'Formulario válido' : 'Formulario inválido' }}
+      </span>
+      <span *ngIf="productForm.dirty">· modificado</span>
+      <span *ngIf="productForm.touched">· interactuado</span>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="productForm.invalid || enviando">
+        {{ enviando ? 'Enviando...' : 'Registrar producto' }}
+      </button>
+      <button type="button" class="btn-secondary" (click)="onReset()" [disabled]="enviando">
+        Limpiar
+      </button>
+    </div>
+  </form>
+
+  <div class="success-msg" *ngIf="productoRegistrado">
+     Producto registrado correctamente (ID: {{ productoRegistrado.id }}) —
+    {{ productoRegistrado.nombre }} | {{ productoRegistrado.categoria }} |
+    ${{ productoRegistrado.precio }} | Stock: {{ productoRegistrado.stock }}
+  </div>
+
+  <div class="error-banner" *ngIf="errorEnvio">
+     Ocurrió un error al registrar el producto. Intente nuevamente.
+  </div>
+</div>
