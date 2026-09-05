@@ -68,7 +68,7 @@ En resumen, el flujo de la aplicación es:
 
 El proyecto está organizado de manera sencilla para separar las diferentes partes de la aplicación:
 
-```text
+
 src/app/
 ├── models/
 │   └── product.model.ts
@@ -79,7 +79,7 @@ src/app/
         ├── product-form.component.ts
         ├── product-form.component.html
         └── product-form.component.css
-```
+
 
 El modelo define cómo está formado un producto, el servicio se encarga de simular el registro y el componente contiene el formulario, sus validaciones y la interfaz que utiliza el usuario.
 
@@ -91,7 +91,7 @@ El componente está creado como `standalone`, por lo que no es necesario agregar
 
 Por ejemplo:
 
-```ts
+
 import { ProductFormComponent } from './app/components/product-form/product-form.component';
 
 @Component({
@@ -100,6 +100,6 @@ import { ProductFormComponent } from './app/components/product-form/product-form
   template: `<app-product-form></app-product-form>`
 })
 export class AppComponent {}
-```
+
 
 Con esto, el formulario puede utilizarse dentro de la aplicación y comenzar a registrar productos.
