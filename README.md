@@ -64,24 +64,6 @@ En resumen, el flujo de la aplicación es:
 
 **Ingresar datos → Validar formulario → Mostrar errores si existen → Enviar producto → Simular registro → Limpiar formulario**
 
-## Estructura principal
-
-El proyecto está organizado de manera sencilla para separar las diferentes partes de la aplicación:
-
-
-src/app/
-├── models/
-│   └── product.model.ts
-├── services/
-│   └── product.service.ts
-└── components/
-    └── product-form/
-        ├── product-form.component.ts
-        ├── product-form.component.html
-        └── product-form.component.css
-
-
-El modelo define cómo está formado un producto, el servicio se encarga de simular el registro y el componente contiene el formulario, sus validaciones y la interfaz que utiliza el usuario.
 
 ## Integración en un proyecto Angular
 
